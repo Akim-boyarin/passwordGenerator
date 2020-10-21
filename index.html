@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Генератор паролей</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .basic {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- изначальные параметры -->
+        <div class="basic">
+            <div>
+                <div>
+                    <label for="passwordLength">Длина пароля: <span> {{ startParams.passwordLength }} </span></label>
+                </div>
+                <div>
+                    <span>5</span> <input type="range" min="5" max="30" step="1" name="passwordLength"
+                        id="passwordLength" v-model="startParams.passwordLength"><span>30</span>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label for="totalPasswords">Всего паролей: <span> {{ startParams.totalPasswords }} </span></label>
+                </div>
+                <div>
+                    <span>1</span><input type="range" min="1" max="10" step="1" name="totalPasswords"
+                        id="totalPasswords" v-model="startParams.totalPasswords"><span>10</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- список паролей -->
+        <div class="basic" v-for="password in passwords">
+            <div>
+                <div><span>{{ password.value }}</span></div>
+                <!-- <button type="button">Копировать</button> -->
+            </div>
+        </div>
+
+        <!-- Генерирование и условные параметры -->
+        <div class="basic">
+            <div>
+                <button type="button" v-on:click="generatePassword">Сгенерировать</button>
+            </div>
+            <div>
+                <h3>Использовать</h3>
+                <div>
+                    <div>
+                        <input type="checkbox" name="capitalLetters" id="capitalLetters"
+                            v-model="passwordConditions.bigLetters">
+                        <div><label for="capitalLetters">Заглавные буквы</label></div>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="digits" id="digits" v-model="passwordConditions.digits">
+                        <div><label for="digits">Цифры</label></div>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="smallLetters" id="smallLetters"
+                            v-model="passwordConditions.smallLetters">
+                        <div><label for="smallLetters">Маленькие буквы</label></div>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="specialSymbols" id="specialSymbols"
+                            v-model="passwordConditions.specialSymbols">
+                        <div><label for="specialSymbols">Специальные символы</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/passwordGeneratorWithConditions.js"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                // значения изначальных параметров
+                startParams: {
+                    passwordLength: "12",
+                    totalPasswords: "3",
+                    idLength: "15",
+                },
+
+                // пароли
+                passwords: [],
+
+                // значения условных параметров
+                passwordConditions: {
+                    bigLetters: true,
+                    digits: true,
+                    smallLetters: true,
+                    specialSymbols: true,
+                },
+                idConditions: {
+                    bigLetters: true,
+                    digits: true,
+                    smallLetters: false,
+                    specialSymbols: false,
+                }
+
+
+            },
+            methods: {
+                generatePassword() {
+                    this.passwords = [];
+                    let passwordLength = +this.startParams.passwordLength,
+                        idLength = +this.startParams.idLength;
+
+                    let numberOfPasswords = +this.startParams.totalPasswords;
+
+                    for (let i = 0; i < numberOfPasswords; i++) {
+                        let password = {};
+                        password.value = generatePasswordOrId(passwordLength, this.passwordConditions);
+                        password.id = generatePasswordOrId(idLength, this.idConditions);
+                        this.passwords.push(password);
+                    }
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>
