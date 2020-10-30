@@ -1,13 +1,13 @@
 // passwordGeneratorWithConditions
 
-function generatePasswordOrId(length = 12, conditionsOfGeneration) {
+function generatePassword(length = 12, conditionsOfGeneration) {
     // определение исходных данных и условий
 
     // исходные данные
     let digits = "0123456789",
         letters = "abcdefghijklmnopqrstuvwxyx",
         specialSymbol = "_",
-        messageOfNothing = "-- // --";
+        nothingValue = "-- // --";
 
     // базовые условия генерации пароля
     // let conditionsOfGeneration = {
@@ -43,7 +43,7 @@ function generatePasswordOrId(length = 12, conditionsOfGeneration) {
     // определение количества компонентов, задание позиций, и генерация пароля
 
     // если нет цифр, и нет букв, и нет специальных символов
-    if (areNothing) return messageOfNothing;
+    if (areNothing) return nothingValue;
 
     // определение количества различных символов и их позиций
 
@@ -61,19 +61,16 @@ function generatePasswordOrId(length = 12, conditionsOfGeneration) {
     // если только цифры
     if (areOnlyDigits) {
         numbersOfSymbols.digits = length;
-
         positionsOfSymbols.digits = getAllNonNegativeIntegersListFromZeroToBeforeCurrent(length);
     }
     // если только буквы
     if (areOnlyletters) {
         numbersOfSymbols.letters = length;
-
         positionsOfSymbols.letters = getAllNonNegativeIntegersListFromZeroToBeforeCurrent(length);
     }
     // если только специальные символы
     if (areOnlySpecialSymbols) {
         numbersOfSymbols.specialSymbols = length;
-
         positionsOfSymbols.specialSymbols = getAllNonNegativeIntegersListFromZeroToBeforeCurrent(length);
     }
 
@@ -81,7 +78,6 @@ function generatePasswordOrId(length = 12, conditionsOfGeneration) {
     if (areDigitsAndLetters) {
         numbersOfSymbols.digits = calculateNumberOfDigits(length);
         numbersOfSymbols.letters = length - numbersOfSymbols.digits;
-
         positionsOfSymbols.digits = getRandomSmallerNumbersList(length, numbersOfSymbols.digits);
         positionsOfSymbols.letters = getAllNonNegativeIntegersListFromZeroToBeforeCurrent(length).filter(position => !(positionsOfSymbols.digits).includes(position));
     }
@@ -89,7 +85,6 @@ function generatePasswordOrId(length = 12, conditionsOfGeneration) {
     if (areLettersAndSpecialSymbols) {
         numbersOfSymbols.specialSymbols = calculateNumberOfSpecialSymbols(length);
         numbersOfSymbols.letters = length - numbersOfSymbols.specialSymbols;
-
         do {
             positionsOfSymbols.specialSymbols = getRandomSmallerNumbersList(length, numbersOfSymbols.specialSymbols, areSpecialSymbols);
         } while (areAdjacentNumbersInTheList(positionsOfSymbols.specialSymbols));
@@ -99,7 +94,6 @@ function generatePasswordOrId(length = 12, conditionsOfGeneration) {
     if (areDigitsAndSpecialSymbols) {
         numbersOfSymbols.specialSymbols = calculateNumberOfSpecialSymbols(length);
         numbersOfSymbols.digits = length - numbersOfSymbols.specialSymbols;
-
         do {
             positionsOfSymbols.specialSymbols = getRandomSmallerNumbersList(length, numbersOfSymbols.specialSymbols, areSpecialSymbols);
         } while (areAdjacentNumbersInTheList(positionsOfSymbols.specialSymbols));
@@ -111,7 +105,6 @@ function generatePasswordOrId(length = 12, conditionsOfGeneration) {
         numbersOfSymbols.digits = calculateNumberOfDigits(length);
         numbersOfSymbols.specialSymbols = calculateNumberOfSpecialSymbols(length);
         numbersOfSymbols.letters = length - (numbersOfSymbols.digits + numbersOfSymbols.specialSymbols);
-
         positionsOfSymbols.digits = getRandomSmallerNumbersList(length, numbersOfSymbols.digits);
         do {
             positionsOfSymbols.specialSymbols = getRandomSmallerNumbersList(length, numbersOfSymbols.specialSymbols, areSpecialSymbols);
@@ -257,6 +250,6 @@ function getRandomSymbol(source) {
 //     smallLetters: false,
 // };
 
-// console.log(generatePasswordOrId(passwordLength));
-// console.log(generatePasswordOrId(passwordLength));
-// console.log(generatePasswordOrId(passwordLength));
+// console.log(generatePassword(passwordLength, conditionsOfGeneration));
+// console.log(generatePassword(passwordLength, conditionsOfGeneration));
+// console.log(generatePassword(passwordLength, conditionsOfGeneration));

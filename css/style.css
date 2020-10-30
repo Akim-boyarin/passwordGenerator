@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+
+body {
+    min-width: 500px;
+}
+
+.main-container {
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* компоненты */
+.components {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.components-title {
+    margin-bottom: 15px;
+}
+
+.components-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.components-list-first-part,
+.components-list-second-part {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+}
+
+.component-captital-letters,
+.component-digits,
+.component-small-letters,
+.component-special-symbols {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+}
+
+.component-captital-letters-input,
+.component-digits-input,
+.component-small-letters-input,
+.component-special-symbols-input {
+    margin-right: 10px;
+    
+}
+
+.components-input,
+.components-label {
+    cursor: pointer;
+}
+
+/* исходные параметры */
+.start-params {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.start-params-title {
+    margin-bottom: 15px;
+}
+
+.start-params-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.password-length,
+.passwords {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+.password-length-label,
+.passwords-label {
+    margin-bottom: 3px;
+}
+
+.password-length-value,
+.passwords-value {
+    font-weight: 600;
+}
+
+.password-length-form,
+.passwords-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.password-length-form > *,
+.passwords-form > * {
+    display: block;
+}
+
+.password-length-input,
+.passwords-input {
+    width: 140px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+/* кнопка генерации */
+.generation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* список паролей */
+.passwords-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.passwords-list-unit {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.passwords-list-unit-text {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1.0625rem;
+    margin-right: 20px;
+}
+
+.passwords-list-unit-copy {
+    align-self: stretch;
+    width: 30px;
+    height: 30px;
+}
+
+.passwords-list-unit-button {
+    height: 100%;
+    background: url("../icons/copy.svg") no-repeat 50%;
+    background-size: 22px;
+}
+
+.passwords-list-unit-button:hover {
+    background-size: 26px;
+}
+
+/* классы - индикаторы копирования */
+.copied {
+    padding-bottom: 2px;
+    border-bottom: 2px solid blue;
+    border-radius: 3px;
+}
+
+.not-copied {
+    padding-bottom: 2px;
+    border-bottom: 2px solid red;
+    border-radius: 3px;
+}

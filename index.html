@@ -6,74 +6,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Генератор паролей</title>
+    <script src="//cdn.rawgit.com/duyetdev/copy.js/master/dist/copy.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <style>
-        .basic {
-            margin: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div id="app">
-
-        <!-- изначальные параметры -->
-        <div class="basic">
-            <div>
-                <div>
-                    <label for="passwordLength">Длина пароля: <span> {{ startParams.passwordLength }} </span></label>
+    <!-- общий блок приложения -->
+    <div id="app" class="main-container">
+        <!-- компоненты -->
+        <div class="components">
+            <h5 class="components-title">Компоненты</h5>
+            <div class="components-list">
+                <div class="components-list-first-part">
+                    <!-- большие буквы -->
+                    <div class="component-captital-letters">
+                        <div class="component-captital-letters-input">
+                            <input class="components-input" type="checkbox" name="capitalLetters" id="capitalLetters"
+                                v-model="passwordConditions.bigLetters">
+                        </div>
+                        <div class="component-captital-letters-label">
+                            <label class="components-label" for="capitalLetters">Заглавные буквы</label>
+                        </div>
+                    </div>
+                    <!-- цифры -->
+                    <div class="component-digits">
+                        <div class="component-digits-input">
+                            <input class="components-input" type="checkbox" name="digits" id="digits"
+                                v-model="passwordConditions.digits">
+                        </div>
+                        <div class="component-digits-label">
+                            <label class="components-label" for="digits">Цифры</label>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span>5</span> <input type="range" min="5" max="30" step="1" name="passwordLength"
-                        id="passwordLength" v-model="startParams.passwordLength"><span>30</span>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <label for="totalPasswords">Всего паролей: <span> {{ startParams.totalPasswords }} </span></label>
-                </div>
-                <div>
-                    <span>1</span><input type="range" min="1" max="10" step="1" name="totalPasswords"
-                        id="totalPasswords" v-model="startParams.totalPasswords"><span>10</span>
+                <div class="components-list-second-part">
+                    <!-- малые буквы -->
+                    <div class="component-small-letters">
+                        <div class="component-small-letters-input">
+                            <input class="components-input" type="checkbox" name="smallLetters" id="smallLetters"
+                                v-model="passwordConditions.smallLetters">
+                        </div>
+                        <div class="component-small-letters-label">
+                            <label class="components-label" for="smallLetters">Маленькие буквы</label>
+                        </div>
+                    </div>
+                    <!-- специальные символы -->
+                    <div class="component-special-symbols">
+                        <div class="component-special-symbols-input">
+                            <input class="components-input" type="checkbox" name="specialSymbols" id="specialSymbols"
+                                v-model="passwordConditions.specialSymbols">
+                        </div>
+                        <div class="component-special-symbols-label">
+                            <label class="components-label" for="specialSymbols">Специальные символы</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
+        <!-- исходные параметры -->
+        <div class="start-params">
+            <h5 class="start-params-title">Исходные параметры</h5>
+            <div class="start-params-list">
+                <!-- длина пароля -->
+                <div class="password-length">
+                    <div class="password-length-label">
+                        <label for="passwordLength">Длина пароля: <span class="password-length-value">
+                                {{ startParams.passwordLength }} </span></label>
+                    </div>
+                    <div class="password-length-form">
+                        <span class="password-length-range-value-min">5</span>
+                        <input type="range" class="password-length-input" min="5" max="30" step="1"
+                            name="passwordLength" id="passwordLength" v-model="startParams.passwordLength">
+                        <span class="password-length-range-value-max">30</span>
+                    </div>
+                </div>
+                <!-- количество паролей -->
+                <div class="passwords">
+                    <div class="passwords-label">
+                        <label for="passwords">Всего паролей: <span class="passwords-value"> {{ startParams.passwords }}
+                            </span></label>
+                    </div>
+                    <div class="passwords-form">
+                        <span>1</span>
+                        <input type="range" class="passwords-input" min="1" max="9" step="1" name="passwords"
+                            id="passwords" v-model="startParams.passwords">
+                        <span>9</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- кнопка генерации -->
+        <div class="generation">
+            <button type="button" class="btn btn-success rounded-pill border border-info"
+                v-on:click="generatePassword">Сгенерировать</button>
+        </div>
         <!-- список паролей -->
-        <div class="basic" v-for="password in passwords">
-            <div>
-                <div><span>{{ password.value }}</span></div>
-                <!-- <button type="button">Копировать</button> -->
-            </div>
-        </div>
-
-        <!-- Генерирование и условные параметры -->
-        <div class="basic">
-            <div>
-                <button type="button" v-on:click="generatePassword">Сгенерировать</button>
-            </div>
-            <div>
-                <h3>Использовать</h3>
-                <div>
-                    <div>
-                        <input type="checkbox" name="capitalLetters" id="capitalLetters"
-                            v-model="passwordConditions.bigLetters">
-                        <div><label for="capitalLetters">Заглавные буквы</label></div>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="digits" id="digits" v-model="passwordConditions.digits">
-                        <div><label for="digits">Цифры</label></div>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="smallLetters" id="smallLetters"
-                            v-model="passwordConditions.smallLetters">
-                        <div><label for="smallLetters">Маленькие буквы</label></div>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="specialSymbols" id="specialSymbols"
-                            v-model="passwordConditions.specialSymbols">
-                        <div><label for="specialSymbols">Специальные символы</label></div>
-                    </div>
+        <div class="passwords-list">
+            <div class="passwords-list-unit" v-for="(password, index) in passwords">
+                <div class="passwords-list-unit-text">
+                    <span
+                        class="passwords-list-unit-number">{{ passwords.length > 1 ? index + 1 + "." : "&#8226" }}</span>
+                    <span class="passwords-list-unit-value"
+                        v-bind:class="{ copied: password.isCopied, 'not-copied': password.isNotCopied }">{{ password.value }}</span>
+                </div>
+                <div class="passwords-list-unit-copy">
+                    <button class="btn btn-link passwords-list-unit-button" type="button"
+                        v-on:click="copyPassword(password)" v-bind:title="tooltips.copy"></button>
                 </div>
             </div>
         </div>
@@ -84,47 +125,52 @@
         let app = new Vue({
             el: "#app",
             data: {
-                // значения изначальных параметров
+                // значения исходных параметров
                 startParams: {
                     passwordLength: "12",
-                    totalPasswords: "3",
+                    passwords: "3",
                     idLength: "15",
                 },
-
                 // пароли
                 passwords: [],
-
-                // значения условных параметров
+                // условия наличия компонентов
                 passwordConditions: {
                     bigLetters: true,
                     digits: true,
                     smallLetters: true,
                     specialSymbols: true,
                 },
-                idConditions: {
-                    bigLetters: true,
-                    digits: true,
-                    smallLetters: false,
-                    specialSymbols: false,
-                }
-
-
+                // всплывающие подсказки
+                tooltips: {
+                    copy: "Копировать",
+                },
             },
             methods: {
                 generatePassword() {
                     this.passwords = [];
-                    let passwordLength = +this.startParams.passwordLength,
-                        idLength = +this.startParams.idLength;
-
-                    let numberOfPasswords = +this.startParams.totalPasswords;
+                    let passwordLength = +this.startParams.passwordLength;
+                    let numberOfPasswords = +this.startParams.passwords;
 
                     for (let i = 0; i < numberOfPasswords; i++) {
                         let password = {};
-                        password.value = generatePasswordOrId(passwordLength, this.passwordConditions);
-                        password.id = generatePasswordOrId(idLength, this.idConditions);
+                        password.value = generatePassword(passwordLength, this.passwordConditions);
+                        password.isCopied = false;
+                        password.isNotCopied = false;
                         this.passwords.push(password);
                     }
                 },
+                copyPassword(password) {
+                    copy(password.value !== "-- // --" ? password.value : "");
+                    // отображение в приложении
+                    password.value !== "-- // --" ? (password.isCopied = true) : (password.isNotCopied = true);
+                    setTimeout(() => {
+                        for (let copyCondition in password) {
+                            if (typeof password[copyCondition] === "boolean") {
+                                password[copyCondition] = false;
+                            }
+                        }
+                    }, 1000);
+                }
             }
         });
     </script>
