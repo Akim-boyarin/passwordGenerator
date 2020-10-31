@@ -113,6 +113,7 @@ function generatePassword(length = 12, conditionsOfGeneration) {
     }
 
     let password = "";
+    
     for (let i = 0; i < length; i++) {
         let symbol;
         if ((positionsOfSymbols.specialSymbols).includes(i)) {
@@ -133,6 +134,7 @@ function generatePassword(length = 12, conditionsOfGeneration) {
                 symbol = coinToss() ? symbol.toUpperCase() : symbol;
             }
         }
+
         password += symbol;
     }
 
