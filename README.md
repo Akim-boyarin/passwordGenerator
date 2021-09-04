@@ -1,9 +1,10 @@
-## passwordGenerator
+# Password generator
 
 This generator was realized using Vue.js and Bootstrap library.
 
-The algorythm is based on pseudorandom number generator (PRNG) which is used in few moments of generation. We have three categories of symbols for future password: digits, lettters and special symbols. 
-Step 1: we get numbers of symbols for each category. For example, we need a password and length of it is 14 symbols, we'll use all categories. Let's calculate numbers of them, these functions do it:    
+The algorythm is based on pseudorandom number generator (**PRNG**) which is used in few moments of generation. We have three categories of symbols for future password: digits, lettters and special symbols.    
+
+**Step 1**: we get numbers of symbols for each category. For example, we need a password and length of it is **14** symbols, we'll use all categories. Let's calculate numbers of them, these functions do it:    
 ```javascript
   // рассчитать количество цифр
   function calculateNumberOfDigits(length) {
@@ -49,8 +50,9 @@ Step 1: we get numbers of symbols for each category. For example, we need a pass
       return (Math.floor(Math.random() * 2) === 0);
   }
 ```
-Remaining quantity is number of letters. As we see, there's function coinToss(), which use PRNG. So, we have 4 digits, 3 special symbols and 7 letters.
-Step 2: we get positions in future password string for each category. To do it, we use next function:
+Remaining quantity is number of letters. As we see, there's function coinToss(), which use **PRNG**. So, we have **4** ***digits***, **3** ***special symbols*** and **7** ***letters***.    
+
+**Step 2**: we get positions in future password string for each category. To do it, we use next function:
 ```javascript
   // получить случайный список целых чисел, меньших чем данное, в количестве, равном второму аргументу, и без значений нуля и максимума для специальных символов
   function getRandomSmallerNumbersList(number, quantity, conditionOfSpecialSymbols = false) {
@@ -73,10 +75,12 @@ Step 2: we get positions in future password string for each category. To do it, 
       return smallerNumbers;
   }
 ```
-Our positions are 9, 2, 10, 7 for digits, 4, 8, 12 for special symbols and 0, 1, 3, 5, 6, 11, 13 for letters. As we see, all components in password's length are busy. This function uses PRNG too.
-Step 3: we get password string using data about positions. This part of code do it:
+Our positions are **9, 2, 10, 7** for ***digits***, **4, 8, 12** for ***special symbols*** and **0, 1, 3, 5, 6, 11, 13** for ***letters***. As we see, all components in password's length are busy. This function uses **PRNG** too.    
+
+**Step 3**: we get password string using data about positions. This part of code do it:
 ```javascript
     ...
+    
     let password = "";
     
     for (let i = 0; i < length; i++) {
@@ -112,7 +116,8 @@ Step 3: we get password string using data about positions. This part of code do 
     }
 
 ```
-We also use function getRandomSymbol(...), work of it is based on PRNG too. These are moment where PRNG is used in the algorythm.
+We also use function getRandomSymbol(...), work of it is based of the **pseudorandom number generator** too. These are moments where **PRNG** is used in the algorythm. In result we get quite good passwords.    
 Our password: **tN7j_bh1_74b_F**. Congratulations!
+
 
 [:arrow_forward: run application :arrow_forward:](https://akim-boyarin.github.io/passwordGenerator/)
