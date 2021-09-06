@@ -51,7 +51,7 @@ The algorythm is based on pseudorandom number generator (**PRNG**) which is used
       return (Math.floor(Math.random() * 2) === 0);
   }
 ```
-Remaining quantity is number of letters. As we see, there's function coinToss(), which use **PRNG**. So, we have **4** ***digits***, **3** ***special symbols*** and **7** ***letters***.    
+Remaining quantity is number of letters. As we see, there's function coinToss(), which uses **PRNG**. So, we have **4** ***digits***, **3** ***special symbols*** and **7** ***letters***.    
 
 **Step 2**: we get positions in future password string for each category. To do it, we use next function:
 ```javascript
