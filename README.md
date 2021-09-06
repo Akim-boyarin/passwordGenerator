@@ -1,6 +1,6 @@
 # Password generator
 
-This generator was realized using Vue.js and Bootstrap library.
+This desktop generator was realized using Vue.js and Bootstrap library.
 The [module of copying to clipboard](https://www.npmjs.com/package/copy-js) was added to this app.
 
 The algorythm is based on pseudorandom number generator (**PRNG**) which is used in few moments of generation. We have three categories of symbols for future password: ***digits***, ***lettters*** and ***special symbols***.    
