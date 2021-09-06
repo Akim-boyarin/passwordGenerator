@@ -118,6 +118,7 @@ Our positions are **9, 2, 10, 7** for ***digits***, **4, 8, 12** for ***special 
 
 ```
 We also use function getRandomSymbol(...), work of it is based of the **pseudorandom number generator** too. These are moments where **PRNG** is used in the algorythm. In result we get quite good passwords.    
+
 Our password: **tN7j_bh1_74b_F**. Congratulations!
 
 
