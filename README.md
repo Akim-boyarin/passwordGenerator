@@ -5,7 +5,7 @@ The [module of copying to clipboard](https://www.npmjs.com/package/copy-js) was 
 
 The algorythm is based on pseudorandom number generator (**PRNG**) which is used in few moments of generation. We have three categories of symbols for future password: ***digits***, ***lettters*** and ***special symbols***.    
 
-**Step 1**: we get numbers of symbols for each category. For example, we need a password and length of it is **14** symbols, we'll use all categories. Let's calculate numbers of them, these functions execute it:    
+**Step 1**: we get numbers of symbols for each category. For example, we need a password and length of it is **14** symbols, we'll use all categories. Let's calculate numbers of them, these functions do it:    
 ```javascript
   // рассчитать количество цифр
   function calculateNumberOfDigits(length) {
